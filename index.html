@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beta Feature Tutorial</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Correct CSS path -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!-- Background Canvas -->
+    <canvas id="bg"></canvas>
+
+    <!-- Header -->
+    <header class="site-header">
+        <img src="assets/decals/logo.png" alt="Nightclub Simulator Logo" class="header-logo">
+        <span class="header-game-name">Nightclub Simulator</span>
+    </header>
+
+    <h1 class="site-title">Battle Royale Testing Tutorial</h1>
+    <p class="site-header-text">Follow the steps to test our new "Battle Royale" mode!</p>
+
+    <!-- Main Tutorial Area -->
+    <main class="tutorial-container">
+
+        <div class="video-button-container">
+            <button id="watchVideoBtn" class="video-button">Watch Video Tutorial</button>
+        </div>
+
+        <div id="step-display" class="step-card">
+            <!-- tutorial.js will inject content here -->
+        </div>
+
+        <div class="step-nav">
+            <button id="prevStep">Previous</button>
+            <button id="nextStep">Next</button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <p>© 2026 Nightclub Simulator VR</p>
+    </footer>
+
+    <!-- Video Modal -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="video-modal-close">&times;</span>
+            <video controls width="100%">
+                <source src="https://media.discordapp.net/attachments/1038785456982216705/1494699324125478983/4b2396a129bf489082dc374073fd1c8b.mov?ex=69e38eb9&is=69e23d39&hm=9fb2d5c67b0c9062a711d8c9fb46edda6ec4abc55a0a878459cd9b69af60c36d&" type="video/quicktime">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <!-- Correct JS paths -->
+    <script src="assets/js/background.js"></script>
+    <script src="assets/js/tutorial.js"></script>
+
+    <!-- Video Modal Script -->
+    <script>
+        const videoModal = document.getElementById('videoModal');
+        const watchVideoBtn = document.getElementById('watchVideoBtn');
+        const modalClose = document.querySelector('.video-modal-close');
+
+        // Open modal when button is clicked
+        watchVideoBtn.addEventListener('click', function() {
+            videoModal.classList.add('active');
+        });
+
+        // Close modal when X is clicked
+        modalClose.addEventListener('click', function() {
+            videoModal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside the video
+        videoModal.addEventListener('click', function(event) {
+            if (event.target === videoModal) {
+                videoModal.classList.remove('active');
+            }
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                videoModal.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
