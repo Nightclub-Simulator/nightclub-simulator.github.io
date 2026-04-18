@@ -66,7 +66,7 @@ body {
     }
 
     .site-title {
-        font-size: 2rem;
+        font-size: 1.8rem;
         margin-top: 20px;
     }
 
@@ -92,12 +92,14 @@ body {
     }
 
     .step-nav {
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
         gap: 12px;
     }
 
     .step-nav button {
-        width: 100%;
+        width: calc(50% - 6px);
+        min-width: 130px;
     }
 }
 
