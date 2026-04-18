@@ -1,7 +1,7 @@
 const steps = [
     {
         title: "Step 1 — Open your app library",
-        text: "Open your Meta app library",
+        text: "Open your Meta app library and find the game",
         images: ["../assets/decals/example1.png"]
     },
     {
@@ -21,7 +21,7 @@ const steps = [
     },
     {
         title: "Step 5 — Launch the game",
-        text: "Once the update is complete, launch Nightclub Simulator VR and enjoy the new mode!"
+        text: "Once the update is complete, launch Nightclub Simulator VR and enjoy testing the new mode!"
     }
 ];
 
@@ -32,15 +32,40 @@ function renderStep() {
     const container = document.getElementById("step-display");
 
     let imgHTML = "";
-    step.images.forEach(src => {
-        imgHTML += `<img src="${src}" class="step-image">`;
-    });
+    if (step.images) {
+        step.images.forEach(src => {
+            imgHTML += `<img src="${src}" class="step-image" onclick="openImageModal('${src}')">`;
+        });
+    }
 
     container.innerHTML = `
         <h2>${step.title}</h2>
         <p>${step.text}</p>
         <div class="image-row">${imgHTML}</div>
     `;
+}
+
+// Add image modal functionality
+function openImageModal(src) {
+    const modal = document.createElement('div');
+    modal.className = 'image-modal';
+    modal.innerHTML = `
+        <div class="image-modal-content">
+            <span class="image-modal-close">&times;</span>
+            <img src="${src}" class="modal-image">
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    const closeBtn = modal.querySelector('.image-modal-close');
+    closeBtn.onclick = () => document.body.removeChild(modal);
+    modal.onclick = (e) => { if (e.target === modal) document.body.removeChild(modal); };
+    document.addEventListener('keydown', function handler(e) {
+        if (e.key === 'Escape') {
+            document.body.removeChild(modal);
+            document.removeEventListener('keydown', handler);
+        }
+    });
 }
 
 document.getElementById("nextStep").addEventListener("click", () => {
