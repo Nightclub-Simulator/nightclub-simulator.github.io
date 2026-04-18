@@ -8,7 +8,10 @@
 body {
     font-family: 'Orbitron', sans-serif;
     color: white;
-    overflow-x: hidden;
+    overflow: hidden;
+    min-height: 100vh;
+    padding-bottom: 80px;
+    background: radial-gradient(ellipse at center, rgba(20, 20, 30, 0.8) 0%, rgba(10, 10, 20, 0.9) 100%);
 }
 
 /* Background canvas */
@@ -23,11 +26,13 @@ body {
 .site-header {
     text-align: center;
     padding: 5px 20px 5px;
-    background-color: #fc00a7;
+    background: #fc00a7;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    box-shadow: 0 4px 20px rgba(252, 0, 167, 0.3);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .header-logo {
@@ -45,6 +50,77 @@ body {
     font-weight: 700;
 }
 
+.action-buttons-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .action-buttons-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .video-button,
+    .info-button-main {
+        min-width: 300px;
+        max-width: 100%;
+    }
+}
+
+.info-button-main {
+    background: linear-gradient(135deg, #00eaff 0%, #fc00a7 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 234, 255, 0.4);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    flex: 1;
+    min-width: 280px;
+    max-width: 320px;
+}
+
+.info-button-main:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 234, 255, 0.6);
+}
+
+.info-button-main::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+    border-radius: 12px;
+}
+
+.info-button-main:hover::before {
+    left: 100%;
+}
+
+.info-icon {
+    font-size: 1.2rem;
+}
+
 .site-title {
     font-size: 2.5rem;
     letter-spacing: 3px;
@@ -53,6 +129,13 @@ body {
     text-align: center;
     padding: 10px 20px 5px;
     margin-top: 40px;
+    text-shadow: 0 0 20px rgba(252, 0, 167, 0.5);
+    animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from { text-shadow: 0 0 20px rgba(252, 0, 167, 0.5); }
+    to { text-shadow: 0 0 30px rgba(252, 0, 167, 0.8), 0 0 40px rgba(252, 0, 167, 0.4); }
 }
 
 .site-header p {
@@ -69,20 +152,35 @@ body {
 
 /* Tutorial container */
 .tutorial-container {
-    max-width: 1200px;   /* was 900 */
+    max-width: 1200px;
     margin: auto;
     padding: 20px;
     margin-top: 40px;
+    margin-bottom: 200px; /* Much more space for footer */
 }
 
 /* Step card */
 .step-card {
-    background: rgba(0, 0, 0, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 12px;
-    padding: 25px;
-    backdrop-filter: blur(6px);
-    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    margin-bottom: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.5s ease-in-out;
+    transition: all 0.3s ease;
+}
+
+.step-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(252, 0, 167, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .step-card h2 {
@@ -101,29 +199,96 @@ body {
     width: 100%;
     max-width: 400px;
     cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.step-image:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 25px rgba(252, 0, 167, 0.4);
+}
+
+/* Loading animation for images */
+.step-image {
+    position: relative;
+}
+
+.step-image::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top: 3px solid #fc00a7;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.step-image:not([src])::after,
+.step-image[loading]::after {
+    opacity: 1;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.step-card.fade-out {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.step-card.fade-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Video button */
-.video-button-container {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
 .video-button {
     padding: 15px 40px;
     font-size: 1.1rem;
     border: none;
-    border-radius: 8px;
-    background: #fc00a7;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fc00a7 0%, #00eaff 100%);
     color: white;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
     font-weight: 700;
+    box-shadow: 0 4px 15px rgba(252, 0, 167, 0.4);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.5px;
+    flex: 1;
+    min-width: 280px;
+    max-width: 320px;
+}
+
+.video-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.video-button:hover::before {
+    left: 100%;
 }
 
 .video-button:hover {
-    background: #00eaff;
-    color: black;
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(252, 0, 167, 0.6);
 }
 
 /* Navigation buttons */
@@ -131,21 +296,48 @@ body {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    position: relative;
+    z-index: 20;
 }
 
 .step-nav button {
-    padding: 12px 25px;
+    padding: 14px 30px;
     font-size: 1rem;
     border: none;
-    border-radius: 8px;
-    background: #00eaff;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00eaff 0%, #fc00a7 100%);
     color: black;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 234, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.step-nav button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.step-nav button:hover::before {
+    left: 100%;
+}
+
+.step-nav button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 234, 255, 0.5);
 }
 
 .step-nav button:hover {
     background: #fc00a7;
+    transform: scale(1.05);
 }
 
 /* Video Modal */
@@ -192,38 +384,132 @@ body {
 
 /* Image Modal */
 .image-modal {
-    display: flex;
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.9);
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.image-modal.active {
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .image-modal-content {
     position: relative;
-    max-width: 95%;
-    max-height: 95%;
+    max-width: 90%;
+    max-height: 90%;
 }
 
-.modal-image {
+.image-modal-content img {
     width: 800px;
     height: auto;
     max-width: 100%;
     max-height: 100%;
+    object-fit: contain;
 }
 
 .image-modal-close {
     position: absolute;
-    top: -10px;
-    right: -10px;
+    right: -30px;
+    top: -30px;
+    font-size: 2rem;
+    font-weight: bold;
     color: white;
-    font-size: 30px;
     cursor: pointer;
+    z-index: 1001;
+}
+
+.image-modal-close:hover {
+    color: #fc00a7;
+}
+
+/* FAQ Modal */
+.faq-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.faq-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faq-modal-content {
+    background: rgba(0, 0, 0, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+}
+
+.faq-modal-content h2 {
+    color: #fc00a7;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.faq-modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.faq-modal-close:hover {
+    color: #fc00a7;
+}
+
+.faq-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.faq-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 15px;
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.faq-item h3 {
+    color: #00eaff;
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.faq-item p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+    margin: 0;
 }
 
 /* Footer */
@@ -233,9 +519,12 @@ body {
     left: 0;
     width: 100%;
     text-align: center;
-    padding: 40px;
-    opacity: 0.6;
-    z-index: 10;
+    padding: 20px;
+    opacity: 0.7;
+    z-index: 5;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    backdrop-filter: blur(5px);
 }
 
 /* Make sure body isn't covering canvas */
@@ -255,4 +544,71 @@ body {
 .tutorial-container {
     position: relative;
     z-index: 10;
+}
+
+.video-modal.active .video-modal-content,
+.image-modal .image-modal-content {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: scale(0.9) translateY(-20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Discord Button */
+.discord-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, #5865f2 0%, #7289da 100%);
+    border: none;
+    border-radius: 25px;
+    padding: 10px 16px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(88, 101, 242, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 0.5px;
+    z-index: 100;
+}
+
+.discord-button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(88, 101, 242, 0.6);
+    background: linear-gradient(135deg, #7289da 0%, #5865f2 100%);
+}
+
+.discord-icon {
+    font-size: 1.1rem;
+}
+
+/* Discord link styling in FAQ */
+.discord-link {
+    color: #5865f2;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.discord-link:hover {
+    color: #7289da;
+    text-decoration: underline;
+}
+
+/* Mobile responsiveness for Discord button */
+@media (max-width: 768px) {
+    .discord-button {
+        bottom: 10px;
+        left: 10px;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
 }

@@ -27,6 +27,13 @@ const steps = [
 
 let currentStep = 0;
 
+function preloadImages(images) {
+    images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+    });
+}
+
 function renderStep() {
     const step = steps[currentStep];
     const container = document.getElementById("step-display");
@@ -34,7 +41,7 @@ function renderStep() {
     let imgHTML = "";
     if (step.images) {
         step.images.forEach(src => {
-            imgHTML += `<img src="${src}" class="step-image" onclick="openImageModal('${src}')">`;
+            imgHTML += `<img src="${src}" class="step-image" loading="lazy" onclick="openImageModal('${src}')">`;
         });
     }
 
@@ -43,43 +50,139 @@ function renderStep() {
         <p>${step.text}</p>
         <div class="image-row">${imgHTML}</div>
     `;
+
+    // Preload next step's images
+    if (currentStep < steps.length - 1 && steps[currentStep + 1].images) {
+        preloadImages(steps[currentStep + 1].images);
+    }
 }
 
-// Add image modal functionality
-function openImageModal(src) {
-    const modal = document.createElement('div');
-    modal.className = 'image-modal';
-    modal.innerHTML = `
-        <div class="image-modal-content">
-            <span class="image-modal-close">&times;</span>
-            <img src="${src}" class="modal-image">
-        </div>
-    `;
-    document.body.appendChild(modal);
+function animateStepTransition(newStepIndex) {
+    const container = document.getElementById("step-display");
+    container.classList.add('fade-out');
 
-    const closeBtn = modal.querySelector('.image-modal-close');
-    closeBtn.onclick = () => document.body.removeChild(modal);
-    modal.onclick = (e) => { if (e.target === modal) document.body.removeChild(modal); };
-    document.addEventListener('keydown', function handler(e) {
-        if (e.key === 'Escape') {
-            document.body.removeChild(modal);
-            document.removeEventListener('keydown', handler);
-        }
-    });
+    setTimeout(() => {
+        currentStep = newStepIndex;
+        renderStep();
+        container.classList.remove('fade-out');
+        container.classList.add('fade-in');
+        setTimeout(() => {
+            container.classList.remove('fade-in');
+        }, 500);
+    }, 300);
 }
 
 document.getElementById("nextStep").addEventListener("click", () => {
     if (currentStep < steps.length - 1) {
-        currentStep++;
-        renderStep();
+        animateStepTransition(currentStep + 1);
     }
 });
 
 document.getElementById("prevStep").addEventListener("click", () => {
     if (currentStep > 0) {
-        currentStep--;
-        renderStep();
+        animateStepTransition(currentStep - 1);
     }
 });
 
 renderStep();
+
+// Image zoom modal functionality
+function openImageModal(src) {
+    const modal = document.getElementById('imageModal');
+    const zoomedImage = document.getElementById('zoomedImage');
+    
+    zoomedImage.src = src;
+    modal.classList.add('active');
+}
+
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('active');
+}
+
+// Close modal when clicking the X
+document.addEventListener('DOMContentLoaded', function() {
+    const modalClose = document.querySelector('.image-modal-close');
+    if (modalClose) {
+        modalClose.addEventListener('click', closeImageModal);
+    }
+    
+    // Close modal when clicking outside the image
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('click', function(event) {
+            if (event.target === imageModal) {
+                closeImageModal();
+            }
+        });
+    }
+
+    // Video Modal functionality
+    const videoModal = document.getElementById('videoModal');
+    const watchVideoBtn = document.getElementById('watchVideoBtn');
+    const videoModalClose = document.querySelector('.video-modal-close');
+
+    if (watchVideoBtn && videoModal) {
+        // Open video modal when button is clicked
+        watchVideoBtn.addEventListener('click', function() {
+            videoModal.classList.add('active');
+        });
+
+        // Close video modal when X is clicked
+        if (videoModalClose) {
+            videoModalClose.addEventListener('click', function() {
+                videoModal.classList.remove('active');
+            });
+        }
+
+        // Close video modal when clicking outside the video
+        videoModal.addEventListener('click', function(event) {
+            if (event.target === videoModal) {
+                videoModal.classList.remove('active');
+            }
+        });
+    }
+
+    // FAQ Modal functionality
+    const faqModal = document.getElementById('faqModal');
+    const infoBtn = document.getElementById('infoBtn');
+    const faqModalClose = document.querySelector('.faq-modal-close');
+
+    if (infoBtn && faqModal) {
+        // Open FAQ modal when info button is clicked
+        infoBtn.addEventListener('click', function() {
+            faqModal.classList.add('active');
+        });
+
+        // Close FAQ modal when X is clicked
+        if (faqModalClose) {
+            faqModalClose.addEventListener('click', function() {
+                faqModal.classList.remove('active');
+            });
+        }
+
+        // Close FAQ modal when clicking outside the content
+        faqModal.addEventListener('click', function(event) {
+            if (event.target === faqModal) {
+                faqModal.classList.remove('active');
+            }
+        });
+    }
+});
+
+// Close modal on Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        closeImageModal();
+        // Also close video modal if open
+        const videoModal = document.getElementById('videoModal');
+        if (videoModal) {
+            videoModal.classList.remove('active');
+        }
+        // Also close FAQ modal if open
+        const faqModal = document.getElementById('faqModal');
+        if (faqModal) {
+            faqModal.classList.remove('active');
+        }
+    }
+});

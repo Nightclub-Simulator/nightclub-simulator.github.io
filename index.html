@@ -16,6 +16,11 @@
     <!-- Background Canvas -->
     <canvas id="bg"></canvas>
 
+    <!-- Discord Button -->
+    <a href="https://discord.gg/U7DDdeqd5k" target="_blank" class="discord-button" title="Join our Discord Server">
+        Discord
+    </a>
+
     <!-- Header -->
     <header class="site-header">
         <img src="assets/decals/logo.png" alt="Nightclub Simulator Logo" class="header-logo">
@@ -28,8 +33,12 @@
     <!-- Main Tutorial Area -->
     <main class="tutorial-container">
 
-        <div class="video-button-container">
+        <!-- Action Buttons -->
+        <div class="action-buttons-container">
             <button id="watchVideoBtn" class="video-button">Watch Video Tutorial</button>
+            <button id="infoBtn" class="info-button-main">
+                FAQ & Information
+            </button>
         </div>
 
         <div id="step-display" class="step-card">
@@ -59,39 +68,60 @@
         </div>
     </div>
 
+    <!-- Image Zoom Modal -->
+    <div id="imageModal" class="image-modal">
+        <div class="image-modal-content">
+            <span class="image-modal-close">&times;</span>
+            <img id="zoomedImage" src="" alt="Zoomed Image">
+        </div>
+    </div>
+
+    <!-- FAQ Modal -->
+    <div id="faqModal" class="faq-modal">
+        <div class="faq-modal-content">
+            <span class="faq-modal-close">&times;</span>
+            <h2>FAQ & Information</h2>
+            <div class="faq-content">
+                <div class="faq-item">
+                    <h3>What is the Battle Royale mode?</h3>
+                    <p>The Battle Royale mode is a new competitive gameplay feature where multiple players compete for the first place!.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>How do I access the beta version?</h3>
+                    <p>Follow the tutorial steps on this site to switch to the beta release channel in your Meta Quest app library.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Is this mode available for all players?</h3>
+                    <p>Yes! As long as you own the base game, you can access the beta test.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>What should I do if I encounter bugs?</h3>
+                    <p>Please report any bugs or issues you find in our <a href="https://discord.gg/U7DDdeqd5k" target="_blank" class="discord-link">Discord server</a>.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>When will Battle Royale be released officially?</h3>
+                    <p>The official release date will be announced once testing is complete and all major issues are resolved.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <h3>Can I play with friends?</h3>
+                    <p>Yes! Battle Royale supports multiplayer matches where you can compete against your friends.</p>
+                </div>
+
+                 <div class="faq-item">
+                    <h3>I still have more questions.</h3>
+                    <p>Feel free to make a ticket in our <a href="https://discord.gg/U7DDdeqd5k" target="_blank" class="discord-link">Discord server</a>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Correct JS paths -->
     <script src="assets/js/background.js"></script>
     <script src="assets/js/tutorial.js"></script>
-
-    <!-- Video Modal Script -->
-    <script>
-        const videoModal = document.getElementById('videoModal');
-        const watchVideoBtn = document.getElementById('watchVideoBtn');
-        const modalClose = document.querySelector('.video-modal-close');
-
-        // Open modal when button is clicked
-        watchVideoBtn.addEventListener('click', function() {
-            videoModal.classList.add('active');
-        });
-
-        // Close modal when X is clicked
-        modalClose.addEventListener('click', function() {
-            videoModal.classList.remove('active');
-        });
-
-        // Close modal when clicking outside the video
-        videoModal.addEventListener('click', function(event) {
-            if (event.target === videoModal) {
-                videoModal.classList.remove('active');
-            }
-        });
-
-        // Close modal on Escape key
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                videoModal.classList.remove('active');
-            }
-        });
-    </script>
 </body>
 </html>
