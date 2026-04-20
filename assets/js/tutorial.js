@@ -131,6 +131,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Close video modal when X is clicked
         if (videoModalClose) {
             videoModalClose.addEventListener('click', function() {
+                const video = videoModal.querySelector('video');
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
                 videoModal.classList.remove('active');
             });
         }
@@ -138,6 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Close video modal when clicking outside the video
         videoModal.addEventListener('click', function(event) {
             if (event.target === videoModal) {
+                const video = videoModal.querySelector('video');
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
                 videoModal.classList.remove('active');
             }
         });
