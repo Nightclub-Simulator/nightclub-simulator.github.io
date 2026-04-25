@@ -35,7 +35,7 @@
 
         <!-- Action Buttons -->
         <div class="action-buttons-container">
-            <button id="watchVideoBtn" class="video-button">Watch Video Tutorial</button>
+            <button id="watchVideoBtn" class="video-button">Video tutorials</button>
             <button id="infoBtn" class="info-button-main">
                 FAQ & Information
             </button>
@@ -57,12 +57,25 @@
         <p>© 2026 Nightclub Simulator VR</p>
     </footer>
 
+    <!-- Video Selection Modal -->
+    <div id="videoSelectionModal" class="video-selection-modal">
+        <div class="video-selection-content">
+            <span class="video-selection-close">&times;</span>
+            <h2>Select a Tutorial</h2>
+            <div class="video-selection-buttons">
+                <button class="video-selection-btn" data-video="tutorial.mp4">How to Enter the Playtest</button>
+                <button class="video-selection-btn" data-video="tutorial2.mp4">How to Get in Battle Royale</button>
+                <button class="video-selection-btn" data-video="tutorial3.mp4">How to Get Back to Live Version</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Video Modal -->
     <div id="videoModal" class="video-modal">
         <div class="video-modal-content">
             <span class="video-modal-close">&times;</span>
             <video controls>
-                <source src="assets/decals/tutorial.mp4" type="video/mp4">
+                <source id="videoSource" src="" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -94,7 +107,7 @@
                 
                 <div class="faq-item">
                     <h3>Is this mode available for all players?</h3>
-                    <p>Yes! As long as you own the base game, you can access the beta test.</p>
+                    <p>Yes! As long as you own the base game, you can access the beta test. While Battle Royale is multiplayer, you can test the new mode without having the multiplayer DLC!</p>
                 </div>
                 
                 <div class="faq-item">

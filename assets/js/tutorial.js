@@ -117,30 +117,66 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Video Modal functionality
+    // Video Selection Modal functionality
+    const videoSelectionModal = document.getElementById('videoSelectionModal');
     const videoModal = document.getElementById('videoModal');
     const watchVideoBtn = document.getElementById('watchVideoBtn');
+    const videoSelectionClose = document.querySelector('.video-selection-close');
+    const videoSelectionBtns = document.querySelectorAll('.video-selection-btn');
     const videoModalClose = document.querySelector('.video-modal-close');
 
-    if (watchVideoBtn && videoModal) {
-        // Open video modal when button is clicked
+    if (watchVideoBtn && videoSelectionModal) {
+        // Open video selection modal when button is clicked
         watchVideoBtn.addEventListener('click', function() {
-            videoModal.classList.add('active');
+            videoSelectionModal.classList.add('active');
         });
 
-        // Close video modal when X is clicked
-        if (videoModalClose) {
-            videoModalClose.addEventListener('click', function() {
-                const video = videoModal.querySelector('video');
-                if (video) {
-                    video.pause();
-                    video.currentTime = 0;
-                }
-                videoModal.classList.remove('active');
+        // Close video selection modal when X is clicked
+        if (videoSelectionClose) {
+            videoSelectionClose.addEventListener('click', function() {
+                videoSelectionModal.classList.remove('active');
             });
         }
 
-        // Close video modal when clicking outside the video
+        // Close video selection modal when clicking outside
+        videoSelectionModal.addEventListener('click', function(event) {
+            if (event.target === videoSelectionModal) {
+                videoSelectionModal.classList.remove('active');
+            }
+        });
+    }
+
+    // Video selection button functionality
+    videoSelectionBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const videoSrc = 'assets/decals/' + this.getAttribute('data-video');
+            const videoSource = document.getElementById('videoSource');
+            const video = videoModal.querySelector('video');
+            if (videoSource) {
+                videoSource.src = videoSrc;
+            }
+            if (video) {
+                video.load();
+            }
+            videoSelectionModal.classList.remove('active');
+            videoModal.classList.add('active');
+        });
+    });
+
+    // Close video modal when X is clicked
+    if (videoModalClose) {
+        videoModalClose.addEventListener('click', function() {
+            const video = videoModal.querySelector('video');
+            if (video) {
+                video.pause();
+                video.currentTime = 0;
+            }
+            videoModal.classList.remove('active');
+        });
+    }
+
+    // Close video modal when clicking outside the video
+    if (videoModal) {
         videoModal.addEventListener('click', function(event) {
             if (event.target === videoModal) {
                 const video = videoModal.querySelector('video');
