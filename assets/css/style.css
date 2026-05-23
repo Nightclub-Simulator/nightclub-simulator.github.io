@@ -643,6 +643,20 @@ body {
     box-shadow: 0 8px 25px rgba(0, 234, 255, 0.5);
 }
 
+.video-selection-btn:disabled,
+.video-selection-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: linear-gradient(135deg, #666666 0%, #888888 100%);
+    box-shadow: none;
+}
+
+.video-selection-btn:disabled:hover,
+.video-selection-btn.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
 /* Footer */
 .site-footer {
     position: fixed;
