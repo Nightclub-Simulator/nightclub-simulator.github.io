@@ -6,12 +6,12 @@ const steps = [
     },
     {
         title: "Step 2 — Press the button with the 3 dots",
-        text: "Hover over Nightclub Simulator VR, and press the button with the 3 dots to open the menu, and then press settings.",
+        text: "Hover over Nightclub Simulator VR (or long press the app icon in the new UI), and press the button with the 3 dots to open the menu, and then press settings.",
         images: ["../assets/decals/example2.png"]
     },
     {
         title: "Step 3 — Change the release channel",
-        text: "Press the button named 'Release Channels'. Change your release channel to 'April Test 01 (Opt-in)' and then press the 'Confirm' button to save your changes.",
+        text: "Press the button named 'Release Channels'. Change your release channel to 'NCS Playtest (Opt-in)' and then press the 'Confirm' button to save your changes.",
         images: ["../assets/decals/example3.png", "../assets/decals/example4.png"]
     },
     {
