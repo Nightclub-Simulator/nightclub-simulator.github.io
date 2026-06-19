@@ -382,7 +382,7 @@ body {
         height: 48px;
     }
 
-    /* keep store badges side-by-side on small screens */
+    /* keep store badges side-by-side on small screens and make them readable */
     .homepage-actions {
         gap: 12px;
         flex-direction: row;
@@ -392,7 +392,8 @@ body {
     }
 
     .store-badge {
-        width: min(48%, 220px);
+        width: calc(50% - 10px);
+        max-width: 260px;
         height: auto;
         object-fit: contain;
     }
@@ -1235,19 +1236,53 @@ body {
     text-decoration: underline;
 }
 
+/* Extra overrides for very small screens */
+@media (max-width: 360px) {
+    .store-badge {
+        width: calc(50vw - 14px) !important;
+        max-width: 220px;
+        height: auto;
+    }
+
+    .discord-button {
+        bottom: 12px !important;
+        right: 10px !important;
+        left: auto !important;
+        z-index: 10001 !important;
+    }
+
+    .site-footer {
+        position: static !important;
+        padding: 8px 8px !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .homepage-actions {
+        gap: 8px;
+    }
+}
+
 /* Mobile responsiveness for Discord button */
 @media (max-width: 768px) {
     .discord-button {
-        bottom: 120px;
+        bottom: 16px;
         right: 12px;
         left: auto;
         padding: 10px 14px;
         font-size: 0.95rem;
+        z-index: 9999;
     }
 
-    /* ensure footer has enough bottom padding so discord doesn't overlap */
+    /* make footer non-fixed on small screens to avoid overlaying content */
     .site-footer {
-        padding-bottom: 140px;
+        position: static;
+        background: transparent;
+        padding: 12px 10px;
+        opacity: 0.9;
+        pointer-events: auto;
+        z-index: 5;
+        box-shadow: none;
     }
 }
 
