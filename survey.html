@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Survey</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <canvas id="bg"></canvas>
+
+    <a href="https://discord.gg/U7DDdeqd5k" target="_blank" class="discord-button" title="Join our Discord Server">
+        Discord
+    </a>
+
+    <header class="site-header">
+        <a href="index.html" class="header-logo-link" aria-label="Go to homepage">
+            <img src="assets/decals/logo.png" alt="Nightclub Simulator Logo" class="header-logo">
+        </a>
+        <span class="header-game-name">Nightclub Simulator</span>
+    </header>
+
+    <main class="tutorial-container">
+        <div class="step-card survey-card">
+            <h1 class="site-title">Player Survey</h1>
+            <p class="site-header-text">Share your feedback and help improve the game.</p>
+            <form id="surveyForm">
+                <div class="faq-item">
+                    <label><strong>1. How old are you?</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="age" value="6-8"> <span>6-8</span></label>
+                        <label class="radio-item"><input type="radio" name="age" value="8-10"> <span>8-10</span></label>
+                        <label class="radio-item"><input type="radio" name="age" value="10-12"> <span>10-12</span></label>
+                        <label class="radio-item"><input type="radio" name="age" value="13-17"> <span>13-17</span></label>
+                        <label class="radio-item"><input type="radio" name="age" value="18-24"> <span>18-24</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>2. What headset do you play mainly on?</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="headset" value="Quest 2"> <span>Quest 2</span></label>
+                        <label class="radio-item"><input type="radio" name="headset" value="Quest 3"> <span>Quest 3</span></label>
+                        <label class="radio-item"><input type="radio" name="headset" value="Quest 3S"> <span>Quest 3S</span></label>
+                        <label class="radio-item"><input type="radio" name="headset" value="Other"> <span>Other</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>3. How long have you been playing VR?</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="vrExperience" value="<6months"> <span>Less than 6 months</span></label>
+                        <label class="radio-item"><input type="radio" name="vrExperience" value="6m-1y"> <span>6 months - 1 year</span></label>
+                        <label class="radio-item"><input type="radio" name="vrExperience" value="1-2y"> <span>1-2 years</span></label>
+                        <label class="radio-item"><input type="radio" name="vrExperience" value="2+y"> <span>2+ years</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>4. How often do you play VR?</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="vrFrequency" value="almost-daily"> <span>Almost daily</span></label>
+                        <label class="radio-item"><input type="radio" name="vrFrequency" value="3-5-week"> <span>3-5 times a week</span></label>
+                        <label class="radio-item"><input type="radio" name="vrFrequency" value="1-2-week"> <span>1-2 times a week</span></label>
+                        <label class="radio-item"><input type="radio" name="vrFrequency" value="less-weekly"> <span>Less than weekly</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label for="otherGames"><strong>5. What other VR games have you played in the past month?</strong></label>
+                    <textarea id="otherGames" name="otherGames" rows="3" placeholder="List any VR games you've played..."></textarea>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>6. How many VR games did you buy in the past 3 months?</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="purchases3months" value="0-2"> <span>0-2</span></label>
+                        <label class="radio-item"><input type="radio" name="purchases3months" value="3-5"> <span>3-5</span></label>
+                        <label class="radio-item"><input type="radio" name="purchases3months" value="6-10"> <span>6-10</span></label>
+                        <label class="radio-item"><input type="radio" name="purchases3months" value="10+"> <span>More than 10</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>7. When buying VR games, you usually...</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="buyingHabits" value="wait-for-sales"> <span>Wait for sales</span></label>
+                        <label class="radio-item"><input type="radio" name="buyingHabits" value="buy-full-price"> <span>Buy at full price if I like it</span></label>
+                        <label class="radio-item"><input type="radio" name="buyingHabits" value="mostly-free"> <span>Mostly play free games</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label for="creators"><strong>8. Any VR creators you watch regularly?</strong></label>
+                    <textarea id="creators" name="creators" rows="2" placeholder="Names or channels (optional)"></textarea>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>9. How did you first hear about Nightclub Sim?</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="heardAbout" value="creator-video"> <span>A creator's video (YouTube/TikTok)</span></label>
+                        <label class="radio-item"><input type="radio" name="heardAbout" value="quest-store"> <span>Browsing the Quest store</span></label>
+                        <label class="radio-item"><input type="radio" name="heardAbout" value="reddit"> <span>Reddit</span></label>
+                        <label class="radio-item"><input type="radio" name="heardAbout" value="friend"> <span>A friend</span></label>
+                        <label class="radio-item"><input type="radio" name="heardAbout" value="discord"> <span>Another Discord server</span></label>
+                        <label class="radio-item"><input type="radio" name="heardAbout" value="article"> <span>An article or news site</span></label>
+                        <label class="radio-item"><input type="radio" name="heardAbout" value="other"> <span>Other</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>10. From first hearing about NCS to buying it, how long did it take?</strong></label>
+                    <div class="radio-group">
+                        <label class="radio-item"><input type="radio" name="timeToBuy" value="right-away"> <span>Bought it right away</span></label>
+                        <label class="radio-item"><input type="radio" name="timeToBuy" value="within-week"> <span>Within a week</span></label>
+                        <label class="radio-item"><input type="radio" name="timeToBuy" value="within-month"> <span>Within a month</span></label>
+                        <label class="radio-item"><input type="radio" name="timeToBuy" value="longer"> <span>Longer</span></label>
+                        <label class="radio-item"><input type="radio" name="timeToBuy" value="haven't-bought"> <span>Haven't bought it yet</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>11. What made you finally hit buy?</strong></label>
+                    <div class="checkbox-group">
+                        <label class="radio-item"><input type="checkbox" name="buyReasons[]" value="gameplay-videos"> <span>Watched gameplay videos</span></label>
+                        <label class="radio-item"><input type="checkbox" name="buyReasons[]" value="on-sale"> <span>It was on sale</span></label>
+                        <label class="radio-item"><input type="checkbox" name="buyReasons[]" value="friends-playing"> <span>Friends were playing</span></label>
+                        <label class="radio-item"><input type="checkbox" name="buyReasons[]" value="good-reviews"> <span>Good reviews</span></label>
+                        <label class="radio-item"><input type="checkbox" name="buyReasons[]" value="love-sandbox"> <span>Love sandbox games</span></label>
+                        <label class="radio-item"><input type="checkbox" name="buyReasons[]" value="store-page"> <span>The store page looks good</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>12. What keeps you coming back to NCS? (Pick up to 2)</strong></label>
+                    <div class="checkbox-group keep-coming">
+                        <label class="radio-item"><input type="checkbox" name="keepComing[]" value="fun-playing"> <span>Fun playing</span></label>
+                        <label class="radio-item"><input type="checkbox" name="keepComing[]" value="multiplayer"> <span>Multiplayer</span></label>
+                        <label class="radio-item"><input type="checkbox" name="keepComing[]" value="making-content"> <span>Making content</span></label>
+                        <label class="radio-item"><input type="checkbox" name="keepComing[]" value="mods"> <span>Mods</span></label>
+                        <label class="radio-item"><input type="checkbox" name="keepComing[]" value="new-updates"> <span>New content updates</span></label>
+                        <label class="radio-item"><input type="checkbox" name="keepComing[]" value="killing-npcs"> <span>Killing NPCs</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>13. What would you like to see more of in this Discord? (select any)</strong></label>
+                    <div class="checkbox-group">
+                        <label class="radio-item"><input type="checkbox" name="discordPrefs[]" value="events"> <span>Community events</span></label>
+                        <label class="radio-item"><input type="checkbox" name="discordPrefs[]" value="dev-updates"> <span>Dev updates & sneak peeks</span></label>
+                        <label class="radio-item"><input type="checkbox" name="discordPrefs[]" value="guides"> <span>Tips & technique guides</span></label>
+                        <label class="radio-item"><input type="checkbox" name="discordPrefs[]" value="giveaways"> <span>Giveaways</span></label>
+                        <label class="radio-item"><input type="checkbox" name="discordPrefs[]" value="leaderboards"> <span>Leaderboards</span></label>
+                        <label class="radio-item"><input type="checkbox" name="discordPrefs[]" value="chatting"> <span>Just chatting with the community</span></label>
+                        <label class="radio-item"><input type="checkbox" name="discordPrefs[]" value="game-news"> <span>Game news</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label><strong>14. Where would you most like to see NCS content? (select any)</strong></label>
+                    <div class="checkbox-group">
+                        <label class="radio-item"><input type="checkbox" name="contentPlaces[]" value="youtube"> <span>YouTube</span></label>
+                        <label class="radio-item"><input type="checkbox" name="contentPlaces[]" value="tiktok"> <span>TikTok</span></label>
+                        <label class="radio-item"><input type="checkbox" name="contentPlaces[]" value="instagram"> <span>Instagram</span></label>
+                        <label class="radio-item"><input type="checkbox" name="contentPlaces[]" value="x"> <span>X (Twitter)</span></label>
+                        <label class="radio-item"><input type="checkbox" name="contentPlaces[]" value="reddit"> <span>Reddit</span></label>
+                        <label class="radio-item"><input type="checkbox" name="contentPlaces[]" value="twitch"> <span>Twitch</span></label>
+                        <label class="radio-item"><input type="checkbox" name="contentPlaces[]" value="discord-only"> <span>Discord is enough for me</span></label>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <label for="contentWanted"><strong>15. What kind of NCS content do you want to see?</strong></label>
+                    <textarea id="contentWanted" name="contentWanted" rows="3" placeholder="Tell us what content you'd like to see..."></textarea>
+                </div>
+
+                <div class="nav-footer">
+                    <div class="progress" id="surveyProgress">Question 1 / 15</div>
+                    <div class="nav-buttons">
+                        <button type="button" id="prevBtn" class="prev-button">Previous</button>
+                        <button type="button" id="nextBtn" class="next-button info-button-main">Next</button>
+                    </div>
+                </div>
+            </form>
+            <script>
+                // Limit Q12 (keepComing) to max 2 selections
+                (function(){
+                    const max = 2;
+                    const container = document.querySelector('.keep-coming');
+                    if (!container) return;
+                    const inputs = Array.from(container.querySelectorAll('input[type="checkbox"]'));
+                    inputs.forEach(i => i.addEventListener('change', () => {
+                        const checked = inputs.filter(x => x.checked);
+                        if (checked.length >= max) {
+                            inputs.forEach(x => { if (!x.checked) x.disabled = true; });
+                        } else {
+                            inputs.forEach(x => x.disabled = false);
+                        }
+                    }));
+                })();
+
+                // Step-by-step navigation for survey questions
+                (function(){
+                    const form = document.getElementById('surveyForm');
+                    const steps = Array.from(form.querySelectorAll('.faq-item'));
+                    if (!steps.length) return;
+                    let current = 0;
+                    const prevBtn = document.getElementById('prevBtn');
+                    const nextBtn = document.getElementById('nextBtn');
+                    const progress = document.getElementById('surveyProgress');
+
+                    function showStep(i){
+                        steps.forEach((s, idx) => {
+                            s.style.display = idx === i ? 'block' : 'none';
+                        });
+                        prevBtn.disabled = i === 0;
+                        if (i === steps.length - 1) {
+                            nextBtn.textContent = 'Submit';
+                        } else {
+                            nextBtn.textContent = 'Next';
+                        }
+                        progress.textContent = `Question ${i+1} / ${steps.length}`;
+                        // focus the first input if present
+                        const firstInput = steps[i].querySelector('input, textarea, select');
+                        if (firstInput) firstInput.focus();
+                    }
+
+                    prevBtn.addEventListener('click', () => {
+                        if (current > 0) { current--; showStep(current); }
+                    });
+
+                    nextBtn.addEventListener('click', () => {
+                        if (current === steps.length - 1) {
+                            form.submit();
+                            return;
+                        }
+                        current++;
+                        showStep(current);
+                    });
+
+                    // initialize
+                    showStep(0);
+                })();
+            </script>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2026 Nightclub Simulator VR</p>
+    </footer>
+
+    <script src="assets/js/background.js"></script>
+</body>
+</html>

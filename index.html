@@ -8,7 +8,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
 
-    <!-- Correct CSS path -->
+    <!-- Site CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
@@ -22,119 +22,80 @@
     </a>
 
     <!-- Header -->
-    <header class="site-header">
-        <img src="assets/decals/logo.png" alt="Nightclub Simulator Logo" class="header-logo">
-        <span class="header-game-name">Nightclub Simulator</span>
+    <header class="site-header homepage-header">
+        <a href="index.html" class="header-logo-link" aria-label="Go to homepage">
+            <img src="assets/decals/logo.png" alt="Nightclub Simulator Logo" class="header-logo">
+        </a>
+        <div class="homepage-header-row">
+            <span class="header-game-name">Nightclub Simulator</span>
+            <button id="menuToggle" class="menu-button" aria-label="Open menu">Menu</button>
+        </div>
     </header>
 
-    <h1 class="site-title">Infection mode Testing Tutorial</h1>
-    <p class="site-header-text">Follow the steps to test our new "Infection" mode!</p>
+    <!-- Hidden Top Menu -->
+    <div id="topMenu" class="top-menu">
+        <div class="top-menu-panel">
+            <button id="closeMenu" class="menu-close" aria-label="Close menu">&times;</button>
+            <nav class="top-menu-links">
+                <a class="menu-link disabled" aria-disabled="true">Beta Tutorial</a>
+                <a href="survey.html" class="menu-link">Player Survey</a>
+            </nav>
+        </div>
+    </div>
 
-    <!-- Main Tutorial Area -->
-    <main class="tutorial-container">
-
-        <!-- Action Buttons -->
-        <div class="action-buttons-container">
-            <button id="watchVideoBtn" class="video-button">Video tutorials</button>
-            <button id="infoBtn" class="info-button-main">
-                FAQ & Information
-            </button>
+    <main class="homepage-content">
+        <h1 class="site-title">Nightclub Simulator VR</h1>
+        <p class="site-header-text">Welcome to the official Nightclub Simulator community page.</p>
+        <p class="homepage-description">Explore our latest updates, tutorials, and events!</p>
+        <div class="homepage-actions">
+            <a href="https://www.oculus.com/experiences/quest/5332536576829015/" target="_blank" class="store-badge-link" aria-label="Get it on Quest">
+                <img src="assets/decals/quest-badge.png" alt="Get it on Quest" class="store-badge">
+            </a>
+            <a href="https://store.steampowered.com/app/2729480/NightClub_Simulator/" target="_blank" class="store-badge-link" aria-label="Get it on Steam">
+                <img src="assets/decals/steam-badge.png" alt="Get it on Steam" class="store-badge">
+            </a>
         </div>
 
-        <div id="step-display" class="step-card">
-            <!-- tutorial.js will inject content here -->
+        <div class="homepage-pages">
+            <a class="page-button disabled" aria-disabled="true">Beta Tutorial</a>
+            <a href="survey.html" class="page-button">Player Survey</a>
         </div>
-
-        <div class="step-nav">
-            <button id="prevStep">Previous</button>
-            <button id="nextStep">Next</button>
-        </div>
-
     </main>
 
-    <!-- Footer -->
     <footer class="site-footer">
         <p>© 2026 Nightclub Simulator VR</p>
     </footer>
 
-    <!-- Video Selection Modal -->
-    <div id="videoSelectionModal" class="video-selection-modal">
-        <div class="video-selection-content">
-            <span class="video-selection-close">&times;</span>
-            <h2>Select a Tutorial</h2>
-            <div class="video-selection-buttons">
-                <button class="video-selection-btn" data-video="tutorial.mp4">How to Enter the Playtest</button>
-                <button class="video-selection-btn disabled" data-video="tutorial2.mp4" disabled>How to Get in Infection Mode</button>
-                <button class="video-selection-btn" data-video="tutorial3.mp4">How to Get Back to Live Version</button>
-            </div>
-        </div>
-    </div>
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const openMenuButton = document.getElementById('openMenuButton');
+        const closeMenu = document.getElementById('closeMenu');
+        const topMenu = document.getElementById('topMenu');
 
-    <!-- Video Modal -->
-    <div id="videoModal" class="video-modal">
-        <div class="video-modal-content">
-            <span class="video-modal-close">&times;</span>
-            <video controls>
-                <source id="videoSource" src="" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
-    </div>
+        function toggleMenu(show) {
+            topMenu.classList.toggle('active', show);
+        }
 
-    <!-- Image Zoom Modal -->
-    <div id="imageModal" class="image-modal">
-        <div class="image-modal-content">
-            <span class="image-modal-close">&times;</span>
-            <img id="zoomedImage" src="" alt="Zoomed Image">
-        </div>
-    </div>
+        if (menuToggle) {
+            menuToggle.addEventListener('click', () => toggleMenu(true));
+        }
 
-    <!-- FAQ Modal -->
-    <div id="faqModal" class="faq-modal">
-        <div class="faq-modal-content">
-            <span class="faq-modal-close">&times;</span>
-            <h2>FAQ & Information</h2>
-            <div class="faq-content">
-                <div class="faq-item">
-                    <h3>What is the Infection mode?</h3>
-                    <p>The Infection mode is a new gamemode where you have to infect everyone before the time runs out, or survive as the last human standing!</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3>How do I access the beta version?</h3>
-                    <p>Follow the tutorial steps on this site to switch to the beta release channel in your Meta Quest app library.</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3>Is this mode available for all players?</h3>
-                    <p>Yes! As long as you own the base game, you can access the beta test. While Infection is multiplayer, you can test the new mode without having the multiplayer DLC!</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3>What should I do if I encounter bugs?</h3>
-                    <p>Please report any bugs or issues you find in our <a href="https://discord.gg/U7DDdeqd5k" target="_blank" class="discord-link">Discord server</a>.</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3>When will Infection be released officially?</h3>
-                    <p>The official release date will be announced once testing is complete and all major issues are resolved.</p>
-                </div>
-                
-                <div class="faq-item">
-                    <h3>Can I play with friends?</h3>
-                    <p>Yes! Infection supports multiplayer matches where you can compete against your friends.</p>
-                </div>
+        if (openMenuButton) {
+            openMenuButton.addEventListener('click', () => toggleMenu(true));
+        }
 
-                 <div class="faq-item">
-                    <h3>I still have more questions.</h3>
-                    <p>Feel free to make a ticket in our <a href="https://discord.gg/U7DDdeqd5k" target="_blank" class="discord-link">Discord server</a>.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        if (closeMenu) {
+            closeMenu.addEventListener('click', () => toggleMenu(false));
+        }
 
-    <!-- Correct JS paths -->
+        if (topMenu) {
+            topMenu.addEventListener('click', (event) => {
+                if (event.target === topMenu) {
+                    toggleMenu(false);
+                }
+            });
+        }
+    </script>
     <script src="assets/js/background.js"></script>
-    <script src="assets/js/tutorial.js"></script>
 </body>
 </html>
