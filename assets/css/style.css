@@ -592,6 +592,13 @@ body {
     width: 100%;
 }
 
+.survey-card .field-note {
+    margin-top: 8px;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.95rem;
+    line-height: 1.35;
+}
+
 .survey-card select {
     appearance: none;
     background-image: linear-gradient(45deg, transparent 50%, rgba(255,255,255,0.45) 50%), linear-gradient(135deg, rgba(255,255,255,0.45) 50%, transparent 50%);
