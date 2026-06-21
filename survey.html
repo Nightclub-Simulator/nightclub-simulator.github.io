@@ -267,9 +267,44 @@
                         if (current > 0) { current--; showStep(current); }
                     });
 
+                    function validateCurrentStep() {
+                        const step = steps[current];
+                        if (!step) return true;
+
+                        // Discord ID step is optional
+                        if (step.querySelector('#discordId')) {
+                            return true;
+                        }
+
+                        const inputs = Array.from(step.querySelectorAll('input, textarea, select'));
+                        if (!inputs.length) return true;
+
+                        const answered = inputs.some(element => {
+                            if (element.tagName === 'TEXTAREA') {
+                                return element.value.trim() !== '';
+                            }
+
+                            if (element.tagName === 'SELECT') {
+                                return element.value !== '' && element.value !== null;
+                            }
+
+                            if (element.type === 'radio' || element.type === 'checkbox') {
+                                return element.checked;
+                            }
+
+                            if (element.type === 'text' || element.type === 'email' || element.type === 'number' || element.type === 'tel') {
+                                return element.value.trim() !== '';
+                            }
+
+                            return element.value !== '';
+                        });
+
+                        return answered;
+                    }
+
                     // Dev token flow: fetch a short-lived token from the bot after question 1
-                    const DEV_TOKEN_ENDPOINT = 'https://strenuous-next-jasmine.ngrok-free.dev/get-token';
-                    const DISCORD_VERIFY_ENDPOINT = '/api/verify-discord';
+                    const DEV_TOKEN_ENDPOINT = 'http://217.174.245.40:8000/get-token';
+                    const DISCORD_VERIFY_ENDPOINT = 'http://217.174.245.40:8000/verify-survey';
                     let devToken = null;
                     let tokenFetched = false;
 
@@ -297,15 +332,16 @@
                     }
 
                     nextBtn.addEventListener('click', async () => {
-                        // After the first question is answered, request a one-time token from the bot
-                        if (current === 0 && !tokenFetched) {
-                            await fetchDevToken();
-                        }
-
                         if (current === steps.length - 1) {
                             submitForm();
                             return;
                         }
+
+                        if (!validateCurrentStep()) {
+                            alert('Please answer this question before continuing.');
+                            return;
+                        }
+
                         current++;
                         showStep(current);
                     });
@@ -327,7 +363,7 @@
                         });
                     }
 
-                    function submitForm() {
+                    async function submitForm() {
                         const formData = new FormData(form);
                         const params = new URLSearchParams(formData);
                         const discordId = formData.get('discordId')?.toString().trim();
@@ -336,21 +372,22 @@
                         nextBtn.disabled = true;
                         nextBtn.textContent = 'Submitting...';
 
-                        fetch(form.action, {
-                            method: 'POST',
-                            body: params
-                        })
-                        .then(() => {
+                        try {
+                            await fetch(form.action, {
+                                method: 'POST',
+                                body: params
+                            });
+
                             if (discordId) {
-                                verifyDiscordId(discordId)
-                                    .then(response => {
-                                        if (!response.ok) {
-                                            console.warn('Discord verify endpoint returned', response.status);
-                                        }
-                                    })
-                                    .catch(error => {
-                                        console.warn('Discord verify request failed:', error);
-                                    });
+                                await fetchDevToken();
+                                if (devToken) {
+                                    const response = await verifyDiscordId(discordId);
+                                    if (!response.ok) {
+                                        console.warn('Discord verify endpoint returned', response.status);
+                                    }
+                                } else {
+                                    console.warn('Could not retrieve token for Discord verification');
+                                }
                             }
 
                             // Hide form and show confirmation
@@ -365,12 +402,12 @@
                                 <p style="color: #aaa; font-size: 1em;">We really appreciate your feedback!</p>
                             `;
                             card.appendChild(confirmation);
-                        })
-                        .catch(() => {
+                        } catch (error) {
                             alert('There was an error submitting your survey. Please try again.');
+                            console.error('Submission failed:', error);
                             nextBtn.disabled = false;
                             nextBtn.textContent = 'Submit';
-                        });
+                        }
                     }
 
                     // initialize
