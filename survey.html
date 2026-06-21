@@ -267,7 +267,41 @@
                         if (current > 0) { current--; showStep(current); }
                     });
 
-                    nextBtn.addEventListener('click', () => {
+                    // Dev token flow: fetch a short-lived token from the bot after question 1
+                    const DEV_TOKEN_ENDPOINT = 'https://strenuous-next-jasmine.ngrok-free.dev/get-token';
+                    const DISCORD_VERIFY_ENDPOINT = '/api/verify-discord';
+                    let devToken = null;
+                    let tokenFetched = false;
+
+                    async function fetchDevToken() {
+                        if (tokenFetched) return;
+                        try {
+                            const resp = await fetch(DEV_TOKEN_ENDPOINT, { method: 'GET' });
+                            if (!resp.ok) {
+                                console.warn('Failed to fetch dev token:', resp.status);
+                                tokenFetched = true;
+                                return;
+                            }
+                            const data = await resp.json();
+                            if (data && data.token) {
+                                devToken = data.token;
+                                console.log('Received dev token');
+                            } else {
+                                console.warn('Token response missing token field', data);
+                            }
+                        } catch (err) {
+                            console.warn('Error fetching dev token:', err);
+                        } finally {
+                            tokenFetched = true;
+                        }
+                    }
+
+                    nextBtn.addEventListener('click', async () => {
+                        // After the first question is answered, request a one-time token from the bot
+                        if (current === 0 && !tokenFetched) {
+                            await fetchDevToken();
+                        }
+
                         if (current === steps.length - 1) {
                             submitForm();
                             return;
@@ -276,21 +310,20 @@
                         showStep(current);
                     });
 
-                    const DISCORD_VERIFY_ENDPOINT = 'https://strenuous-next-jasmine.ngrok-free.dev/verify-survey';
-                    const DISCORD_VERIFY_SECRET = '966ac7f9134bfe8ab6c95176e18699151e380ca2406293808c8470f5a5cab1c8';
-
                     function verifyDiscordId(discordId) {
                         if (!discordId) {
                             return Promise.resolve();
                         }
 
+                        const body = { user_id: discordId };
+                        if (devToken) body.token = devToken;
+
                         return fetch(DISCORD_VERIFY_ENDPOINT, {
                             method: 'POST',
                             headers: {
-                                'Content-Type': 'application/json',
-                                'WEBHOOK_SECRET': DISCORD_VERIFY_SECRET
+                                'Content-Type': 'application/json'
                             },
-                            body: JSON.stringify({ user_id: discordId })
+                            body: JSON.stringify(body)
                         });
                     }
 
